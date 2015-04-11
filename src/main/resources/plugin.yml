@@ -1,0 +1,23 @@
+name: YouTubeMC
+version: 1.0
+main: nl.galaxias.youtubemc.YouTubeMC
+
+commands:
+  yt:
+    description: See YouTubers
+  youtubemc:
+    description: Main command
+  livestream:
+    description: Start livestreaming
+    permission: youtubemc.youtuber
+  record:
+    description: Start recording
+    permission: youtubemc.youtuber
+  newvideo:
+    description: Announces a new video has been uploaded
+    permission: youtubemc.youtuber
+
+permissions:
+  youtubemc.youtuber:
+    description: Gives access to all useful commands from YouTubeMC
+    default: op
