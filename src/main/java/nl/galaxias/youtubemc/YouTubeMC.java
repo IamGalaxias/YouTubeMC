@@ -46,6 +46,8 @@ public class YouTubeMC extends JavaPlugin {
 
     public void initializeConfig() {
         config.addDefault("general.enable-plugin", true);
+        config.addDefault("general.enable-titles", true);
+
         config.addDefault("messages.no-permission", "&cYou do not have permission to execute this command!");
         config.addDefault("messages.start-recording", "&c!youtuber! just started recording! Video name: !videoname!");
         config.addDefault("messages.stop-recording", "&c!youtuber! just stopped recording.");

@@ -20,9 +20,23 @@ public class RecordCommand implements CommandExecutor {
                                 String videoname = args[1];
 
                                 Bukkit.broadcastMessage(ChatColor.translateAlternateColorCodes('&', YouTubeMC.getPlugin().getConfig().getString("messages.start-recording")).replaceAll("!youtuber!", sender.getName()).replaceAll("!videoname!", videoname));
+
+                                if (YouTubeMC.getPlugin().getConfig().getBoolean("general.enable-titles")) {
+                                    Title title = new Title(ChatColor.translateAlternateColorCodes('&', YouTubeMC.getPlugin().getConfig().getString("messages.start-recording")).replaceAll("!youtuber!", sender.getName()).replaceAll("!videoname!", videoname));
+                                    title.setTitleColor(ChatColor.GREEN);
+
+                                    title.broadcast();
+                                }
                             }
                             else if (args.length == 1) {
                                 Bukkit.broadcastMessage(ChatColor.translateAlternateColorCodes('&', YouTubeMC.getPlugin().getConfig().getString("messages.start-recording")).replaceAll("!youtuber!", sender.getName()));
+
+                                if (YouTubeMC.getPlugin().getConfig().getBoolean("general.enable-titles")) {
+                                    Title title = new Title(ChatColor.translateAlternateColorCodes('&', YouTubeMC.getPlugin().getConfig().getString("messages.start-recording")).replaceAll("!youtuber!", sender.getName()));
+                                    title.setTitleColor(ChatColor.GREEN);
+
+                                    title.broadcast();
+                                }
                             }
 
                             YouTubeMC.recording.put(sender.getName(), true);
@@ -35,6 +49,13 @@ public class RecordCommand implements CommandExecutor {
 
                         if (YouTubeMC.recording.containsKey(sender.getName())) {
                             Bukkit.broadcastMessage(ChatColor.translateAlternateColorCodes('&', YouTubeMC.getPlugin().getConfig().getString("messages.stop-recording")).replaceAll("!youtuber!", sender.getName()));
+
+                            if (YouTubeMC.getPlugin().getConfig().getBoolean("general.enable-titles")) {
+                                Title title = new Title(ChatColor.translateAlternateColorCodes('&', YouTubeMC.getPlugin().getConfig().getString("messages.stop-recording")).replaceAll("!youtuber!", sender.getName()));
+                                title.setTitleColor(ChatColor.RED);
+
+                                title.broadcast();
+                            }
 
                             YouTubeMC.recording.remove(sender.getName());
                         }

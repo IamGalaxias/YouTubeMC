@@ -21,6 +21,13 @@ public class LivestreamCommand implements CommandExecutor {
                             if (!(YouTubeMC.livestreaming.containsKey(sender.getName()))) {
                                 Bukkit.broadcastMessage(ChatColor.translateAlternateColorCodes('&', YouTubeMC.getPlugin().getConfig().getString("messages.start-livestream")).replaceAll("!youtuber!", sender.getName()).replaceAll("!url!", url));
 
+                                if (YouTubeMC.getPlugin().getConfig().getBoolean("general.enable-titles")) {
+                                    Title title = new Title(ChatColor.translateAlternateColorCodes('&', YouTubeMC.getPlugin().getConfig().getString("messages.start-livestream")).replaceAll("!youtuber!", sender.getName()).replaceAll("!url!", url));
+                                    title.setTitleColor(ChatColor.GREEN);
+
+                                    title.broadcast();
+                                }
+
                                 YouTubeMC.livestreaming.put(sender.getName(), url);
                             }
                             else {
@@ -37,6 +44,13 @@ public class LivestreamCommand implements CommandExecutor {
 
                             if (YouTubeMC.livestreaming.containsKey(sender.getName())) {
                                 Bukkit.broadcastMessage(ChatColor.translateAlternateColorCodes('&', YouTubeMC.getPlugin().getConfig().getString("messages.stop-livestream")).replaceAll("!youtuber!", sender.getName()).replaceAll("!url!", url));
+
+                                if (YouTubeMC.getPlugin().getConfig().getBoolean("general.enable-titles")) {
+                                    Title title = new Title(ChatColor.translateAlternateColorCodes('&', YouTubeMC.getPlugin().getConfig().getString("messages.stop-livestream")).replaceAll("!youtuber!", sender.getName()).replaceAll("!url!", url));
+                                    title.setTitleColor(ChatColor.RED);
+
+                                    title.broadcast();
+                                }
 
                                 YouTubeMC.livestreaming.remove(sender.getName());
                             }
