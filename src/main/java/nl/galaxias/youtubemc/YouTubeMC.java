@@ -2,9 +2,7 @@ package nl.galaxias.youtubemc;
 
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
-import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
-import org.bukkit.inventory.Inventory;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -22,17 +20,11 @@ public class YouTubeMC extends JavaPlugin {
     public void onEnable() {
         plugin = this;
 
-        config.addDefault("messages.no-permission", "&cYou do not have permission to execute this command!");
-        config.addDefault("messages.start-recording", "&c!youtuber! just started recording! Video name: !videoname!");
-        config.addDefault("messages.stop-recording", "&c!youtuber! just stopped recording.");
-        config.addDefault("messages.start-livestream", "&c!youtuber! just started a livestream! URL: !url!");
-        config.addDefault("messages.stop-livestream", "&c!youtuber! just stopped the livestream! URL: !url!");
-        config.addDefault("messages.new-video", "&c!youtuber! just uploaded a new video! Video name: !videoname!, URL: !url!");
-        config.addDefault("messages.already-recording", "&c!youtuber!, you are already recording!");
-        config.addDefault("messages.not-recording", "&c!youtuber!, you aren't even recording!");
+        initializeConfig();
 
-        config.options().copyDefaults(true);
-        saveConfig();
+        if (!(config.getBoolean("general.enable-plugin"))) {
+            disablePlugin("The plugin is not enabled in the config.");
+        }
 
         registerEvents(this, new YouTubersGui());
 
@@ -45,6 +37,26 @@ public class YouTubeMC extends JavaPlugin {
 
     public void onDisable() {
         plugin = null;
+    }
+
+    public void disablePlugin(String reason) {
+        getLogger().info("Disabling... reason: " + reason);
+        Bukkit.getPluginManager().disablePlugin(plugin);
+    }
+
+    public void initializeConfig() {
+        config.addDefault("general.enable-plugin", true);
+        config.addDefault("messages.no-permission", "&cYou do not have permission to execute this command!");
+        config.addDefault("messages.start-recording", "&c!youtuber! just started recording! Video name: !videoname!");
+        config.addDefault("messages.stop-recording", "&c!youtuber! just stopped recording.");
+        config.addDefault("messages.start-livestream", "&c!youtuber! just started a livestream! URL: !url!");
+        config.addDefault("messages.stop-livestream", "&c!youtuber! just stopped the livestream! URL: !url!");
+        config.addDefault("messages.new-video", "&c!youtuber! just uploaded a new video! Video name: !videoname!, URL: !url!");
+        config.addDefault("messages.already-recording", "&c!youtuber!, you are already recording!");
+        config.addDefault("messages.not-recording", "&c!youtuber!, you aren't even recording!");
+
+        config.options().copyDefaults(true);
+        saveConfig();
     }
 
     public static double getVersion() {
